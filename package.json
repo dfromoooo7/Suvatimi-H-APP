@@ -1,0 +1,53 @@
+{
+  "name": "suvatimih",
+  "version": "1.0.0",
+  "description": "SUVATIMI-H website packaged as PWA / mobile / desktop app",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx http-server -p 8080",
+    "pwa:audit": "npx lighthouse http://localhost:8080 --only-categories=pwa --output html --output-path=lhreport.html",
+    "generate-icons": "node scripts/generate-icons.js",
+    "postinstall": "npm run generate-icons || true && node scripts/postinstall-vercel-link.js || true",
+    "ci:pwa-audit": "npx http-server -p 8080 & sleep 2 && npx lighthouse http://localhost:8080 --only-categories=pwa --output json --output-path=lhci/report.json",
+    "capacitor:init": "npx cap init",
+    "capacitor:setup:android": "powershell -ExecutionPolicy Bypass -File scripts/setup-capacitor.ps1 -platform android",
+    "capacitor:setup:ios": "powershell -ExecutionPolicy Bypass -File scripts/setup-capacitor.ps1 -platform ios",
+    "electron:dev": "electron .",
+    "electron:build": "electron-builder --publish never",
+    "vercel:link": "npx vercel link --yes",
+    "vercel:preview": "npx vercel",
+    "vercel:deploy": "npx vercel --prod",
+    "vercel:setup-project": "bash scripts/create-vercel-project.sh"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.0.0",
+    "@capacitor/core": "^5.0.0",
+    "electron": "^25.0.0",
+    "electron-builder": "^24.0.0",
+    "http-server": "^14.1.1",
+    "lighthouse": "^11.0.0",
+    "sharp": "^0.32.0",
+    "png-to-ico": "^1.0.0",
+    "png2icons": "^1.0.0"
+  },
+  "build": {
+    "appId": "com.suvatimih.app",
+    "productName": "SUVATIMI-H",
+    "files": ["**/*"],
+    "directories": {
+      "buildResources": "build"
+    },
+    "win": {
+      "target": ["nsis", "portable"],
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "icon": "build/icon.png"
+    }
+  }
+}

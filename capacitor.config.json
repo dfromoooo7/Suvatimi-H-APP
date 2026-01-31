@@ -1,0 +1,6 @@
+{
+  "appId": "com.suvatimih.app",
+  "appName": "SUVATIMI-H",
+  "webDir": ".",
+  "bundledWebRuntime": false
+}

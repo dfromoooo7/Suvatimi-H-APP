@@ -1,0 +1,14 @@
+{
+  "webManifestUrl": "https://yourdomain.example/manifest.json",
+  "host": "yourdomain.example",
+  "packageId": "com.suvatimih.app",
+  "name": "SUVATIMI-H",
+  "launcherName": "SUVATIMI-H",
+  "themeColor": "#2A7AE4",
+  "backgroundColor": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "startUrl": "/index.html",
+  "shortName": "SUVATIMI-H",
+  "iconUrl": "https://yourdomain.example/images/icon-512.png"
+}

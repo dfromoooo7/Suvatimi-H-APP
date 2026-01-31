@@ -1,0 +1,35 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build a release AAB"
+  lane :release do
+    gradle(task: 'bundleRelease')
+  end
+
+  desc "Build an internal beta"
+  lane :beta do
+    gradle(task: 'bundleRelease')
+  end
+
+  desc "Upload AAB to Google Play using supply (service account required)"
+  lane :upload_play do
+    gradle(task: 'bundleRelease')
+    supply(
+      json_key: ENV['GOOGLE_PLAY_JSON_PATH'] || 'fastlane/google-play.json',
+      track: ENV['PLAY_TRACK'] || 'internal'
+    )
+  end
+end
+
+platform :ios do
+  desc "Build an iOS archive"
+  lane :release do
+    build_app(scheme: "App")
+  end
+
+  desc "Build an iOS beta (TestFlight)"
+  lane :beta do
+    build_app(scheme: "App")
+    upload_to_testflight
+  end
+end
